@@ -112,19 +112,12 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\Authorization.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\Registration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pages\Authorization.xaml.cs">
-      <DependentUpon>Authorization.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>
@@ -176,6 +169,9 @@
       <DependentUpon>InstFollow_db.edmx</DependentUpon>
       <LastGenOutput>InstFollow_db.cs</LastGenOutput>
     </Content>
+    <Resource Include="inst_icon.jpg" />
+    <Resource Include="inst_icon.png" />
+    <Resource Include="Pages\inst_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

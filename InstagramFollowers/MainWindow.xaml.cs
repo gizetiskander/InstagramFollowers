@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using InstagramFollowers.db;
+using InstagramFollowers.Pages;
 
 namespace InstagramFollowers
 {
@@ -20,9 +22,18 @@ namespace InstagramFollowers
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static dbEntities dbEntities = new dbEntities();
+        public static User authUser;
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Sign_up_Click(object sender, RoutedEventArgs e)
+        {
+            Registration registration = new Registration();
+            this.Close();
+            registration.Show();
         }
     }
 }
