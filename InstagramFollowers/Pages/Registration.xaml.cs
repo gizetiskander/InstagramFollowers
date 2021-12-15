@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using InstagramFollowers.db;
 using InstagramFollowers.Pages;
+using Microsoft.Win32;
 
 namespace InstagramFollowers.Pages
 {
@@ -21,7 +23,7 @@ namespace InstagramFollowers.Pages
     /// </summary>
     public partial class Registration : Window
     {
-       
+        public static InstFollowersEntities dbEntities = new InstFollowersEntities();
         public Registration()
         {
             InitializeComponent();
@@ -54,6 +56,25 @@ namespace InstagramFollowers.Pages
                     MessageBox.Show("Вы зарегистрировались!");
                 }
             }
-        } 
+        }
+
+        private void btnImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofdImage = new OpenFileDialog();
+            ofdImage.Filter = "Image files|*.bmp;*.jpg;*.png|All files|*.*";
+            ofdImage.FilterIndex = 1;
+            if (ofdImage.ShowDialog() == true)
+            {
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                image.UriSource = new Uri(ofdImage.FileName);
+                image.EndInit();
+                C_User cu = new C_User();
+                playim.Source = image;
+                cu.User_Image = File.ReadAllBytes(ofdImage.FileName);
+                dbEntities.C_User.Add(cu);
+                dbEntities.SaveChanges();
+            }
+        }
     }
 }
