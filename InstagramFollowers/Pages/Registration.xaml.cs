@@ -31,7 +31,7 @@ namespace InstagramFollowers.Pages
 
         private void Sign_up_Click(object sender, RoutedEventArgs e)
         {
-            if (UserName.Text == "" || Login.Text == "")
+            if (UserName.Text == "" || Login.Text == "" || About.Text == "" || Password.Text == "")
             {
                 MessageBox.Show("Введите ваши данные");
             }
@@ -42,6 +42,22 @@ namespace InstagramFollowers.Pages
                 user.Login = Login.Text;
                 user.Password = Password.Text;
                 user.User_Name = UserName.Text;
+                user.User_text = About.Text;
+                OpenFileDialog ofdImage = new OpenFileDialog();
+                ofdImage.Filter = "Image files|*.bmp;*.jpg;*.png|All files|*.*";
+                ofdImage.FilterIndex = 1;
+                if (ofdImage.ShowDialog() == true)
+                {
+                    BitmapImage image = new BitmapImage();
+                    image.BeginInit();
+                    image.UriSource = new Uri(ofdImage.FileName);
+                    image.EndInit();
+                    C_User cu = new C_User();
+                    playim.Source = image;
+                    cu.User_Image = File.ReadAllBytes(ofdImage.FileName);
+                    dbEntities.C_User.Add(cu);
+                    dbEntities.SaveChanges();
+                }
                 MainWindow.dbEntities.C_User.Add(user);
                 try
                 {
@@ -54,6 +70,9 @@ namespace InstagramFollowers.Pages
                 finally
                 {
                     MessageBox.Show("Вы зарегистрировались!");
+                    MainWindow mainWindow = new MainWindow();
+                    this.Close();
+                    mainWindow.Show();
                 }
             }
         }
@@ -72,8 +91,6 @@ namespace InstagramFollowers.Pages
                 C_User cu = new C_User();
                 playim.Source = image;
                 cu.User_Image = File.ReadAllBytes(ofdImage.FileName);
-                dbEntities.C_User.Add(cu);
-                dbEntities.SaveChanges();
             }
         }
     }

@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="HomePage" Height="800" Width="1440" Background="Black">
     <Grid>
-        <Button Content="Подписаться " HorizontalAlignment="Left" Margin="0,206,0,0" VerticalAlignment="Top" Width="108" Height="29" Background="White"/>
-        <ListView x:Name="Follower" Margin="0,0,1051,563" Background="Black" Foreground="White" BorderBrush="White">
+        <Button Content="Подписаться " HorizontalAlignment="Left" Margin="0,378,0,0" VerticalAlignment="Top" Width="108" Height="29" Background="White"/>
+        <ListView x:Name="Follower" Margin="0,0,1041,396" Background="Black" Foreground="White" BorderBrush="White">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding User_Name}" 
