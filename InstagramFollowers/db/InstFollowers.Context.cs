@@ -15,10 +15,10 @@ namespace InstagramFollowers.db
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class dbEntities : DbContext
+    public partial class InstFollowersEntities : DbContext
     {
-        public dbEntities()
-            : base("name=dbEntities")
+        public InstFollowersEntities()
+            : base("name=InstFollowersEntities")
         {
         }
     
@@ -27,11 +27,13 @@ namespace InstagramFollowers.db
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Followers> Followers { get; set; }
+        public virtual DbSet<C_User> C_User { get; set; }
+        public virtual DbSet<Follower> Follower { get; set; }
+        public virtual DbSet<History_Follower> History_Follower { get; set; }
         public virtual DbSet<Subscribed> Subscribed { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Unsubscribed> Unsubscribed { get; set; }
-        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Follower_view> Follower_view { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

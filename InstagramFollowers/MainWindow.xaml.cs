@@ -22,8 +22,8 @@ namespace InstagramFollowers
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static dbEntities dbEntities = new dbEntities();
-        public static User authUser;
+        public static InstFollowersEntities dbEntities = new InstFollowersEntities();
+        public static C_User authUser;
         public MainWindow()
         {
             InitializeComponent();
@@ -34,6 +34,28 @@ namespace InstagramFollowers
             Registration registration = new Registration();
             this.Close();
             registration.Show();
+        }
+
+        private void Sign_in_Click(object sender, RoutedEventArgs e)
+        {
+            if (Login.Text == "" || Password.Text == "")
+            {
+                MessageBox.Show("Введите ваши данные!");
+            }
+            foreach (var user in MainWindow.dbEntities.C_User)
+            {
+                if(user.Login == Login.Text.Trim())
+                {
+                    if (user.Password == Password.Text.Trim())
+                    {
+                        MessageBox.Show($"Привет, Пользователь: {user.Login}");
+                        MainWindow.authUser = user;
+                        InstFollowers inst = new InstFollowers();
+                        this.Close();
+                        inst.Show();
+                    }
+                }
+            }
         }
     }
 }

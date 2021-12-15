@@ -72,52 +72,72 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="db\Followers.cs">
-      <DependentUpon>InstFollow_db.tt</DependentUpon>
+    <Compile Include="db\C_User.cs">
+      <DependentUpon>InstFollowers.tt</DependentUpon>
     </Compile>
-    <Compile Include="db\InstFollow_db.Context.cs">
+    <Compile Include="db\Follower.cs">
+      <DependentUpon>InstFollowers.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\Follower_view.cs">
+      <DependentUpon>InstFollowers.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\History_Follower.cs">
+      <DependentUpon>InstFollowers.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\InstFollowers.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InstFollow_db.Context.tt</DependentUpon>
+      <DependentUpon>InstFollowers.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="db\InstFollow_db.cs">
+    <Compile Include="db\InstFollowers.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InstFollow_db.tt</DependentUpon>
+      <DependentUpon>InstFollowers.tt</DependentUpon>
     </Compile>
-    <Compile Include="db\InstFollow_db.Designer.cs">
+    <Compile Include="db\InstFollowers.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InstFollow_db.edmx</DependentUpon>
+      <DependentUpon>InstFollowers.edmx</DependentUpon>
     </Compile>
     <Compile Include="db\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>InstFollow_db.tt</DependentUpon>
+      <DependentUpon>InstFollowers.tt</DependentUpon>
     </Compile>
     <Compile Include="db\sp_helpdiagrams_Result.cs">
-      <DependentUpon>InstFollow_db.tt</DependentUpon>
+      <DependentUpon>InstFollowers.tt</DependentUpon>
     </Compile>
     <Compile Include="db\Subscribed.cs">
-      <DependentUpon>InstFollow_db.tt</DependentUpon>
+      <DependentUpon>InstFollowers.tt</DependentUpon>
     </Compile>
     <Compile Include="db\sysdiagrams.cs">
-      <DependentUpon>InstFollow_db.tt</DependentUpon>
+      <DependentUpon>InstFollowers.tt</DependentUpon>
     </Compile>
     <Compile Include="db\Unsubscribed.cs">
-      <DependentUpon>InstFollow_db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="db\User.cs">
-      <DependentUpon>InstFollow_db.tt</DependentUpon>
+      <DependentUpon>InstFollowers.tt</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\InstFollowers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Registration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\InstFollowers.xaml.cs">
+      <DependentUpon>InstFollowers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>
@@ -138,12 +158,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="db\InstFollow_db.edmx">
+    <EntityDeploy Include="db\InstFollowers.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>InstFollow_db.Designer.cs</LastGenOutput>
+      <LastGenOutput>InstFollowers.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="db\InstFollow_db.edmx.diagram">
-      <DependentUpon>InstFollow_db.edmx</DependentUpon>
+    <None Include="db\InstFollowers.edmx.diagram">
+      <DependentUpon>InstFollowers.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -154,27 +174,30 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Resource Include="Res\inst_icon.png" />
+    <Resource Include="Pages\Home_Icon.png" />
+    <Resource Include="inst_icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="db\InstFollow_db.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>InstFollow_db.Context.cs</LastGenOutput>
-      <DependentUpon>InstFollow_db.edmx</DependentUpon>
-    </Content>
-    <Content Include="db\InstFollow_db.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InstFollow_db.edmx</DependentUpon>
-      <LastGenOutput>InstFollow_db.cs</LastGenOutput>
-    </Content>
-    <Resource Include="inst_icon.jpg" />
-    <Resource Include="inst_icon.png" />
+    <Resource Include="Pages\Res\inst_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Pages\inst_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="db\InstFollowers.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InstFollowers.edmx</DependentUpon>
+      <LastGenOutput>InstFollowers.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="db\InstFollowers.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InstFollowers.edmx</DependentUpon>
+      <LastGenOutput>InstFollowers.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

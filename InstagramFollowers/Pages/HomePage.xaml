@@ -1,0 +1,41 @@
+﻿<Window x:Class="InstagramFollowers.Pages.HomePage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InstagramFollowers.Pages"
+        mc:Ignorable="d"
+        Title="HomePage" Height="800" Width="1440" Background="Black">
+    <Grid>
+        <Button Content="Подписаться " HorizontalAlignment="Left" Margin="0,211,0,0" VerticalAlignment="Top" Width="108" Height="29" Background="White"/>
+        <ListView x:Name="Follower" Margin="0,0,1051,563" Background="Black" Foreground="White" BorderBrush="White">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding User_Name}" 
+                      Header="User_Name" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding User_text}" 
+                      Header="User_text" Width="100"/>
+                    <GridViewColumn x:Name="User_Image" Header="User_Image" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image x:Name="image_1" Source="{Binding User_Image}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListBox x:Name="Follower1" HorizontalAlignment="Left" Height="606" Margin="500,10,0,0" VerticalAlignment="Top" Width="686" Background="Black" Foreground="White">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <Image Width="100" Height="75" Source="{Binding User_Image}" />
+                        <TextBlock Text="{Binding User_Name}" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding User_text}" HorizontalAlignment="Center"/>
+                        <Button Content="Подписаться " HorizontalAlignment="Left"  VerticalAlignment="Top" Width="108" Height="29" Background="White"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>

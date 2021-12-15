@@ -14,10 +14,10 @@ namespace InstagramFollowers.db
     
     public partial class Subscribed
     {
-        public int id_Subscribed { get; set; }
+        public int iD_Subscribed { get; set; }
         public string Sub_Name { get; set; }
-        public Nullable<int> Id_Followers { get; set; }
+        public Nullable<int> ID_Follower { get; set; }
     
-        public virtual Followers Followers { get; set; }
+        public virtual Follower Follower { get; set; }
     }
 }

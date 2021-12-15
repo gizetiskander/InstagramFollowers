@@ -12,10 +12,11 @@ namespace InstagramFollowers.db
     using System;
     using System.Collections.Generic;
     
-    public partial class Unsubscribed
+    public partial class History_Follower
     {
-        public int ID_Unsubscribed { get; set; }
-        public string Unsub_Name { get; set; }
+        public int ID_History_Follower { get; set; }
+        public Nullable<System.DateTime> History_Follower_date { get; set; }
+        public string History_Follower_text { get; set; }
         public Nullable<int> ID_Follower { get; set; }
     
         public virtual Follower Follower { get; set; }

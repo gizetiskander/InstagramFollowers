@@ -35,12 +35,12 @@ namespace InstagramFollowers.Pages
             }
             else
             {
-                User user = new User();
+                C_User user = new C_User();
 
                 user.Login = Login.Text;
                 user.Password = Password.Text;
                 user.User_Name = UserName.Text;
-                MainWindow.dbEntities.User.Add(user);
+                MainWindow.dbEntities.C_User.Add(user);
                 try
                 {
                     MainWindow.dbEntities.SaveChanges();

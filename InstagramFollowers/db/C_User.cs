@@ -12,23 +12,22 @@ namespace InstagramFollowers.db
     using System;
     using System.Collections.Generic;
     
-    public partial class Followers
+    public partial class C_User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Followers()
+        public C_User()
         {
-            this.Subscribed = new HashSet<Subscribed>();
-            this.Unsubscribed = new HashSet<Unsubscribed>();
+            this.Follower = new HashSet<Follower>();
         }
     
-        public int Id_Followers { get; set; }
-        public Nullable<int> Count_Followers { get; set; }
-        public Nullable<int> Id_User { get; set; }
+        public int ID_User { get; set; }
+        public string User_Name { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string User_text { get; set; }
+        public byte[] User_Image { get; set; }
     
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subscribed> Subscribed { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Unsubscribed> Unsubscribed { get; set; }
+        public virtual ICollection<Follower> Follower { get; set; }
     }
 }
