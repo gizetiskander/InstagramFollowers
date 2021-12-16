@@ -31,6 +31,20 @@ namespace InstLibrary
         {
         }
 
+        public InstApi(string clientId, string clientSecret)
+            : this(clientId, clientSecret, null, null, InstApiDef, OAuthUriDef, RealTimeApiDef)
+        {
+        }
+
+        public InstApi(string clientId, string clientSecret, string redirectUri)
+          : this(clientId, clientSecret, redirectUri, null, InstApiDef, OAuthUriDef, RealTimeApiDef)
+        {
+        }
+
+        public InstApi(string clientId, string clientSecret, string redirectUri, string callbackUri)
+            : this(clientId, clientSecret, redirectUri, callbackUri, InstApiDef, OAuthUriDef, RealTimeApiDef)
+        {
+        }
         public InstApi(string instUri, string oAuthUri, string realTimeApi, string clientID, string clientSecret, string redirectUri, string callBackUri)
         {
             InstUri = instUri;
