@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using InstagramFollowers.db;
+using InstagramFollowers.Pages;
 
 namespace InstagramFollowers.Pages
 {
@@ -19,16 +21,20 @@ namespace InstagramFollowers.Pages
     /// </summary>
     public partial class InstFollowers : Window
     {
+        public static InstFollowersEntities dbEntities = new InstFollowersEntities();
         public InstFollowers()
         {
             InitializeComponent();
+            dbEntities = new InstFollowersEntities();
+            Unsub.ItemsSource = dbEntities.Unsubscribed.ToList();
+            Sub.ItemsSource = dbEntities.Subscribed.ToList();
         }
 
         private void OpenHome_Click(object sender, RoutedEventArgs e)
         {
-            HomePage home = new HomePage();
+            MainWindow main = new MainWindow();
             this.Close();
-            home.Show();
+            main.Show();
         }
     }
 }

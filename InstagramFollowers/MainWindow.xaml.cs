@@ -55,6 +55,13 @@ namespace InstagramFollowers
                         inst.Show();
                     }
                 }
+                if (user.Login != Login.Text.Trim())
+                {
+                    if(user.Password != Password.Text.Trim())
+                    {
+                        MessageBox.Show("Пользователь не найден!");
+                    }
+                }
             }
         }
     }
