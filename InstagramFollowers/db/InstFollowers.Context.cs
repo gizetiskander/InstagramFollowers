@@ -30,9 +30,8 @@ namespace InstagramFollowers.db
         public virtual DbSet<C_User> C_User { get; set; }
         public virtual DbSet<Follower> Follower { get; set; }
         public virtual DbSet<History_Follower> History_Follower { get; set; }
-        public virtual DbSet<Subscribed> Subscribed { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<Unsubscribed> Unsubscribed { get; set; }
         public virtual DbSet<Follower_view> Follower_view { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)

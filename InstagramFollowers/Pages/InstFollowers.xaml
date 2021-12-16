@@ -8,20 +8,20 @@
         Title="InstFollowers" Height="750" Width="1440" Background="Black">
     <Grid>
         <Image HorizontalAlignment="Left" Height="82" Margin="1284,10,0,0" VerticalAlignment="Top" Width="82" Source="inst_icon.png"/>
-        <Button x:Name="Home" Click="OpenHome_Click" Margin="664,622,607,0" BorderBrush="#FF060606" Height="97" VerticalAlignment="Top">
+        <Button x:Name="Home" Click="OpenHome_Click" Margin="626,622,645,0" BorderBrush="#FF060606" Height="97" VerticalAlignment="Top">
             <Button.Background>
                 <ImageBrush ImageSource="Home_icon.png"/>
             </Button.Background>
         </Button>
         <TextBlock HorizontalAlignment="Left" Margin="30,10,0,0" TextWrapping="Wrap" Text="Подписались" VerticalAlignment="Top" Height="50" Width="238" Foreground="White" FontSize="36" FontWeight="Bold"/>
         <TextBlock HorizontalAlignment="Left" Margin="767,10,0,0" TextWrapping="Wrap" Text="Отписались" VerticalAlignment="Top" Height="50" Width="238" Foreground="White" FontSize="36" FontWeight="Bold"/>
-        <ListBox x:Name="Unsub" HorizontalAlignment="Left" Height="520" Margin="760,97,0,0" VerticalAlignment="Top" Width="662" Background="Black" Foreground="White">
+        <ListBox x:Name="Unsub" HorizontalAlignment="Left" Height="520" Margin="704,97,0,0" VerticalAlignment="Top" Width="662" Background="Black" Foreground="White" Initialized="Unsub_initialized">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Margin="5" Orientation="Horizontal">
-                        <Image Width="100" Height="75" Source="{Binding User_Image}" />
-                        <TextBlock Text="{Binding User_Name}" HorizontalAlignment="Center"/>
-                        <TextBlock Text="{Binding User_text}" HorizontalAlignment="Center"/>
+                    <StackPanel x:Name="Unsub_StackPanel" Margin="5" Orientation="Horizontal">
+                        <Image x:Name="Unsub_image" Width="100" Height="75" Source="{Binding Follower_Image}" />
+                        <TextBlock x:Name="Unsub_Name" Text="{Binding Follower_Name}" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="Unsub_text" Text="{Binding Follower_text}" HorizontalAlignment="Center" Margin="5"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -30,9 +30,9 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5" Orientation="Horizontal">
-                        <Image Width="100" Height="75" Source="{Binding User_Image}" />
-                        <TextBlock Text="{Binding User_Name}" HorizontalAlignment="Center"/>
-                        <TextBlock Text="{Binding User_text}" HorizontalAlignment="Center"/>
+                        <Image Width="100" Height="75" Source="{Binding Follower_Image}" />
+                        <TextBlock Text="{Binding Follower_Name}" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Follower_text}" HorizontalAlignment="Right" Padding="5"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

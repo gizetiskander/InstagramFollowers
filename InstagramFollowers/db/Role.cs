@@ -12,12 +12,18 @@ namespace InstagramFollowers.db
     using System;
     using System.Collections.Generic;
     
-    public partial class Unsubscribed
+    public partial class Role
     {
-        public int ID_Unsubscribed { get; set; }
-        public string Unsub_Name { get; set; }
-        public Nullable<int> ID_Follower { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Role()
+        {
+            this.Follower = new HashSet<Follower>();
+        }
     
-        public virtual Follower Follower { get; set; }
+        public int ID_Role { get; set; }
+        public string Role_Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Follower> Follower { get; set; }
     }
 }

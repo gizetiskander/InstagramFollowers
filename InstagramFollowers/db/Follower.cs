@@ -18,21 +18,18 @@ namespace InstagramFollowers.db
         public Follower()
         {
             this.History_Follower = new HashSet<History_Follower>();
-            this.Subscribed = new HashSet<Subscribed>();
-            this.Unsubscribed = new HashSet<Unsubscribed>();
         }
     
         public int ID_Follower { get; set; }
         public string Follower_Name { get; set; }
         public Nullable<int> ID_User { get; set; }
-        public byte[] Follower_version { get; set; }
+        public byte[] Follower_Image { get; set; }
+        public string Follower_text { get; set; }
+        public Nullable<int> ID_Role { get; set; }
     
         public virtual C_User C_User { get; set; }
+        public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<History_Follower> History_Follower { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subscribed> Subscribed { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Unsubscribed> Unsubscribed { get; set; }
     }
 }

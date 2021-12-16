@@ -20,10 +20,12 @@
           <Key>
             <PropertyRef Name="ID_Follower" />
           </Key>
-          <Property Name="ID_Follower" Type="int" Nullable="false" />
+          <Property Name="ID_Follower" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Follower_Name" Type="varchar" MaxLength="50" />
           <Property Name="ID_User" Type="int" />
-          <Property Name="Follower_version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Follower_Image" Type="image" />
+          <Property Name="Follower_text" Type="varchar" MaxLength="5000" />
+          <Property Name="ID_Role" Type="int" />
         </EntityType>
         <EntityType Name="History_Follower">
           <Key>
@@ -34,13 +36,12 @@
           <Property Name="History_Follower_text" Type="varchar" MaxLength="5000" Nullable="false" />
           <Property Name="ID_Follower" Type="int" />
         </EntityType>
-        <EntityType Name="Subscribed">
+        <EntityType Name="Role">
           <Key>
-            <PropertyRef Name="iD_Subscribed" />
+            <PropertyRef Name="ID_Role" />
           </Key>
-          <Property Name="iD_Subscribed" Type="int" Nullable="false" />
-          <Property Name="Sub_Name" Type="varchar" MaxLength="50" />
-          <Property Name="ID_Follower" Type="int" />
+          <Property Name="ID_Role" Type="int" Nullable="false" />
+          <Property Name="Role_Name" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -51,14 +52,6 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
-        <EntityType Name="Unsubscribed">
-          <Key>
-            <PropertyRef Name="ID_Unsubscribed" />
-          </Key>
-          <Property Name="ID_Unsubscribed" Type="int" Nullable="false" />
-          <Property Name="Unsub_Name" Type="varchar" MaxLength="50" />
-          <Property Name="ID_Follower" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "InstagramFollowers.dbo.Follower_view" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -72,6 +65,18 @@
           <Property Name="ID_User" Type="int" />
           <Property Name="Follower_version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Follower_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Follower" Type="Self.Follower" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID_Role" />
+            </Principal>
+            <Dependent Role="Follower">
+              <PropertyRef Name="ID_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Followers_User">
           <End Role="_User" Type="Self._User" Multiplicity="0..1" />
           <End Role="Follower" Type="Self.Follower" Multiplicity="*" />
@@ -92,30 +97,6 @@
               <PropertyRef Name="ID_Follower" />
             </Principal>
             <Dependent Role="History_Follower">
-              <PropertyRef Name="ID_Follower" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Subscribed_Followers">
-          <End Role="Follower" Type="Self.Follower" Multiplicity="0..1" />
-          <End Role="Subscribed" Type="Self.Subscribed" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Follower">
-              <PropertyRef Name="ID_Follower" />
-            </Principal>
-            <Dependent Role="Subscribed">
-              <PropertyRef Name="ID_Follower" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Unsubscribed_Followers">
-          <End Role="Follower" Type="Self.Follower" Multiplicity="0..1" />
-          <End Role="Unsubscribed" Type="Self.Unsubscribed" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Follower">
-              <PropertyRef Name="ID_Follower" />
-            </Principal>
-            <Dependent Role="Unsubscribed">
               <PropertyRef Name="ID_Follower" />
             </Dependent>
           </ReferentialConstraint>
@@ -155,9 +136,8 @@
           <EntitySet Name="_User" EntityType="Self._User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Follower" EntityType="Self.Follower" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="History_Follower" EntityType="Self.History_Follower" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Subscribed" EntityType="Self.Subscribed" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Unsubscribed" EntityType="Self.Unsubscribed" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Follower_view" EntityType="Self.Follower_view" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Follower_view].[ID_Follower] AS [ID_Follower], 
@@ -166,6 +146,10 @@
     [Follower_view].[Follower_version] AS [Follower_version]
     FROM [dbo].[Follower_view] AS [Follower_view]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_Follower_Role" Association="Self.FK_Follower_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Follower" EntitySet="Follower" />
+          </AssociationSet>
           <AssociationSet Name="FK_Followers_User" Association="Self.FK_Followers_User">
             <End Role="_User" EntitySet="_User" />
             <End Role="Follower" EntitySet="Follower" />
@@ -173,14 +157,6 @@
           <AssociationSet Name="FK_History_Follower_Follower" Association="Self.FK_History_Follower_Follower">
             <End Role="Follower" EntitySet="Follower" />
             <End Role="History_Follower" EntitySet="History_Follower" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Subscribed_Followers" Association="Self.FK_Subscribed_Followers">
-            <End Role="Follower" EntitySet="Follower" />
-            <End Role="Subscribed" EntitySet="Subscribed" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Unsubscribed_Followers" Association="Self.FK_Unsubscribed_Followers">
-            <End Role="Follower" EntitySet="Follower" />
-            <End Role="Unsubscribed" EntitySet="Unsubscribed" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -204,14 +180,15 @@
           <Key>
             <PropertyRef Name="ID_Follower" />
           </Key>
-          <Property Name="ID_Follower" Type="Int32" Nullable="false" />
+          <Property Name="ID_Follower" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Follower_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ID_User" Type="Int32" />
-          <Property Name="Follower_version" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Follower_Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Follower_text" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Role" Type="Int32" />
           <NavigationProperty Name="C_User" Relationship="Self.FK_Followers_User" FromRole="Follower" ToRole="C_User" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Follower_Role" FromRole="Follower" ToRole="Role" />
           <NavigationProperty Name="History_Follower" Relationship="Self.FK_History_Follower_Follower" FromRole="Follower" ToRole="History_Follower" />
-          <NavigationProperty Name="Subscribed" Relationship="Self.FK_Subscribed_Followers" FromRole="Follower" ToRole="Subscribed" />
-          <NavigationProperty Name="Unsubscribed" Relationship="Self.FK_Unsubscribed_Followers" FromRole="Follower" ToRole="Unsubscribed" />
         </EntityType>
         <EntityType Name="History_Follower">
           <Key>
@@ -223,14 +200,13 @@
           <Property Name="ID_Follower" Type="Int32" />
           <NavigationProperty Name="Follower" Relationship="Self.FK_History_Follower_Follower" FromRole="History_Follower" ToRole="Follower" />
         </EntityType>
-        <EntityType Name="Subscribed">
+        <EntityType Name="Role">
           <Key>
-            <PropertyRef Name="iD_Subscribed" />
+            <PropertyRef Name="ID_Role" />
           </Key>
-          <Property Name="iD_Subscribed" Type="Int32" Nullable="false" />
-          <Property Name="Sub_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ID_Follower" Type="Int32" />
-          <NavigationProperty Name="Follower" Relationship="Self.FK_Subscribed_Followers" FromRole="Subscribed" ToRole="Follower" />
+          <Property Name="ID_Role" Type="Int32" Nullable="false" />
+          <Property Name="Role_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Follower" Relationship="Self.FK_Follower_Role" FromRole="Role" ToRole="Follower" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -241,15 +217,6 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="Unsubscribed">
-          <Key>
-            <PropertyRef Name="ID_Unsubscribed" />
-          </Key>
-          <Property Name="ID_Unsubscribed" Type="Int32" Nullable="false" />
-          <Property Name="Unsub_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ID_Follower" Type="Int32" />
-          <NavigationProperty Name="Follower" Relationship="Self.FK_Unsubscribed_Followers" FromRole="Unsubscribed" ToRole="Follower" />
         </EntityType>
         <EntityType Name="Follower_view">
           <Key>
@@ -273,6 +240,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Follower_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Follower" Type="Self.Follower" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID_Role" />
+            </Principal>
+            <Dependent Role="Follower">
+              <PropertyRef Name="ID_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_History_Follower_Follower">
           <End Role="Follower" Type="Self.Follower" Multiplicity="0..1" />
           <End Role="History_Follower" Type="Self.History_Follower" Multiplicity="*" />
@@ -285,53 +264,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Subscribed_Followers">
-          <End Role="Follower" Type="Self.Follower" Multiplicity="0..1" />
-          <End Role="Subscribed" Type="Self.Subscribed" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Follower">
-              <PropertyRef Name="ID_Follower" />
-            </Principal>
-            <Dependent Role="Subscribed">
-              <PropertyRef Name="ID_Follower" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Unsubscribed_Followers">
-          <End Role="Follower" Type="Self.Follower" Multiplicity="0..1" />
-          <End Role="Unsubscribed" Type="Self.Unsubscribed" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Follower">
-              <PropertyRef Name="ID_Follower" />
-            </Principal>
-            <Dependent Role="Unsubscribed">
-              <PropertyRef Name="ID_Follower" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="InstFollowersEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C_User" EntityType="Self.C_User" />
           <EntitySet Name="Follower" EntityType="Self.Follower" />
           <EntitySet Name="History_Follower" EntityType="Self.History_Follower" />
-          <EntitySet Name="Subscribed" EntityType="Self.Subscribed" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="Unsubscribed" EntityType="Self.Unsubscribed" />
           <EntitySet Name="Follower_view" EntityType="Self.Follower_view" />
           <AssociationSet Name="FK_Followers_User" Association="Self.FK_Followers_User">
             <End Role="C_User" EntitySet="C_User" />
             <End Role="Follower" EntitySet="Follower" />
           </AssociationSet>
+          <AssociationSet Name="FK_Follower_Role" Association="Self.FK_Follower_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Follower" EntitySet="Follower" />
+          </AssociationSet>
           <AssociationSet Name="FK_History_Follower_Follower" Association="Self.FK_History_Follower_Follower">
             <End Role="Follower" EntitySet="Follower" />
             <End Role="History_Follower" EntitySet="History_Follower" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Subscribed_Followers" Association="Self.FK_Subscribed_Followers">
-            <End Role="Follower" EntitySet="Follower" />
-            <End Role="Subscribed" EntitySet="Subscribed" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Unsubscribed_Followers" Association="Self.FK_Unsubscribed_Followers">
-            <End Role="Follower" EntitySet="Follower" />
-            <End Role="Unsubscribed" EntitySet="Unsubscribed" />
           </AssociationSet>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -399,7 +349,9 @@
                 <ScalarProperty Name="ID_Follower" ColumnName="ID_Follower" />
                 <ScalarProperty Name="Follower_Name" ColumnName="Follower_Name" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
-                <ScalarProperty Name="Follower_version" ColumnName="Follower_version" />
+                <ScalarProperty Name="Follower_Image" ColumnName="Follower_Image" />
+                <ScalarProperty Name="Follower_text" ColumnName="Follower_text" />
+                <ScalarProperty Name="ID_Role" ColumnName="ID_Role" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -413,12 +365,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Subscribed">
-            <EntityTypeMapping TypeName="InstagramFollowersModel.Subscribed">
-              <MappingFragment StoreEntitySet="Subscribed">
-                <ScalarProperty Name="iD_Subscribed" ColumnName="iD_Subscribed" />
-                <ScalarProperty Name="Sub_Name" ColumnName="Sub_Name" />
-                <ScalarProperty Name="ID_Follower" ColumnName="ID_Follower" />
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="InstagramFollowersModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="ID_Role" ColumnName="ID_Role" />
+                <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -430,15 +381,6 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Unsubscribed">
-            <EntityTypeMapping TypeName="InstagramFollowersModel.Unsubscribed">
-              <MappingFragment StoreEntitySet="Unsubscribed">
-                <ScalarProperty Name="ID_Unsubscribed" ColumnName="ID_Unsubscribed" />
-                <ScalarProperty Name="Unsub_Name" ColumnName="Unsub_Name" />
-                <ScalarProperty Name="ID_Follower" ColumnName="ID_Follower" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

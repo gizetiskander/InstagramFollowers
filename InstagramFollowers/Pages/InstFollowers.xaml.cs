@@ -26,8 +26,8 @@ namespace InstagramFollowers.Pages
         {
             InitializeComponent();
             dbEntities = new InstFollowersEntities();
-            Unsub.ItemsSource = dbEntities.Unsubscribed.ToList();
-            Sub.ItemsSource = dbEntities.Subscribed.ToList();
+            Sub.ItemsSource = dbEntities.Follower.ToList();
+            Unsub.ItemsSource = dbEntities.Follower.ToList();
         }
 
         private void OpenHome_Click(object sender, RoutedEventArgs e)
@@ -35,6 +35,17 @@ namespace InstagramFollowers.Pages
             MainWindow main = new MainWindow();
             this.Close();
             main.Show();
+        }
+
+        private void Unsub_initialized(object sender, EventArgs e)
+        {
+            foreach(var follower in InstFollowers.dbEntities.Follower)
+            {
+                if(follower.ID_Role == 2)
+                {
+                    
+                }
+            }
         }
     }
 }
