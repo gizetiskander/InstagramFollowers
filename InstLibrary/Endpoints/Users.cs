@@ -14,7 +14,7 @@ namespace InstLibrary.Endpoints
         /// User Endpoints
         /// </summary>
         /// <param name="config">An instance of the InstagramConfiguration class</param>
-        public Users(InstagramConfig config) : this(config, null)
+        public Users(InstApi config) : this(config, null)
         {
 
         }
@@ -24,7 +24,7 @@ namespace InstLibrary.Endpoints
         /// </summary>
         /// <param name="config">An instance of the InstagramConfiguration class</param>
         /// <param name="auth">An instance of the OAuthResponse class.</param>
-        public Users(InstagramConfig config, OAuthResponse auth) : base("users/", config, auth)
+        public Users(InstApi config, OAuthResponse auth) : base("users/", config, auth)
         {
             
         }

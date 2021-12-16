@@ -5,7 +5,7 @@ namespace InstLibrary.Models.Responses
     /// <summary>
     /// Response object holding a list of users and pagination
     /// </summary>
-    public class UsersResponse : Response, IPagination<User>
+    public class UsersResponse : Response
     {
         /// <summary>
         /// Gets or sets the data.

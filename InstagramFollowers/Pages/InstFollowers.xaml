@@ -8,7 +8,7 @@
         Title="InstFollowers" Height="750" Width="1440" Background="Black">
     <Grid>
         <Image HorizontalAlignment="Left" Height="82" Margin="1284,10,0,0" VerticalAlignment="Top" Width="82" Source="inst_icon.png"/>
-        <Button x:Name="Home" Click="OpenHome_Click" Margin="664,622,673,0" BorderBrush="#FF060606" Height="97" VerticalAlignment="Top">
+        <Button x:Name="Home" Click="OpenHome_Click" Margin="664,622,607,0" BorderBrush="#FF060606" Height="97" VerticalAlignment="Top">
             <Button.Background>
                 <ImageBrush ImageSource="Home_icon.png"/>
             </Button.Background>

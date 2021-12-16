@@ -19,7 +19,7 @@ namespace InstLibrary.Endpoints
         /// Initializes a new instance of the <see cref="Embedding"/> class.
         /// </summary>
         public Embedding()
-            : base(String.Empty, new InstagramConfig(null, null, null, null, "http://api.instagram.com/", null, null)) // for some reason it doesnt like the v1 suffix in the url
+            : base(String.Empty, new InstApi(null, null, null, null, "http://api.instagram.com/", null, null)) // for some reason it doesnt like the v1 suffix in the url
         {
         }
 

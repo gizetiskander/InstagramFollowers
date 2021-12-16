@@ -40,15 +40,15 @@ namespace InstLibrary.Endpoints
         /// Construct a Subscription Endpoint
         /// </summary>
         /// <param name="config">An instagram config object</param>
-        public Subscription(InstagramConfig config)
+        public Subscription(InstApi config)
             : base(config.RealTimeApi, config)
         {
         }
 
         protected override HttpRequestMessage AddAuth(HttpRequestMessage request)
         {
-            request.AddParameter("client_id", InstagramConfig.ClientId);
-            request.AddParameter("client_secret", InstagramConfig.ClientSecret);
+            request.AddParameter("client_id", InstApi.ClientID);
+            request.AddParameter("client_secret", InstApi.ClientSecret);
 
             return request;
         }
@@ -77,12 +77,12 @@ namespace InstLibrary.Endpoints
             verifyToken = string.IsNullOrWhiteSpace(verifyToken) ? Guid.NewGuid().ToString() : verifyToken;
             var postParams = new Dictionary<string, string>
             {
-                {"client_id", InstagramConfig.ClientId},
-                {"client_secret", InstagramConfig.ClientSecret},
+                {"client_id", InstApi.ClientID},
+                {"client_secret", InstApi.ClientSecret},
                 {"object", type.ToString().ToLower()},
                 {"aspect", Aspect.Media.ToString().ToLower()},
                 {"verify_token", verifyToken},
-                {"callback_url", InstagramConfig.CallbackUri},
+                {"callback_url", InstApi.CallBackUri},
             };
             return postParams;
         }

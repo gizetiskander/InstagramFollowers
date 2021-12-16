@@ -192,6 +192,11 @@
       <LastGenOutput>InstFollowers.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\InstLibrary\InstLibrary.csproj">
+      <Project>{7a1639ae-b754-4a02-91ff-cddc666733e1}</Project>
+      <Name>InstLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

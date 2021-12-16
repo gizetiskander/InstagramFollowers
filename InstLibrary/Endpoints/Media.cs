@@ -16,7 +16,7 @@ namespace InstLibrary.Endpoints
         /// Media Endpoints
         /// </summary>
         /// <param name="config">An instance of the InstagramConfig class.</param>
-        public Media(InstagramConfig config)
+        public Media(InstApi config)
             : this(config, null)
         {
         }
@@ -26,7 +26,7 @@ namespace InstLibrary.Endpoints
         /// </summary>
         /// <param name="config">An instance of the InstagramConfig class.</param>
         /// <param name="auth">An instance of the OAuthResponse class.</param>
-        public Media(InstagramConfig config, OAuthResponse auth)
+        public Media(InstApi config, OAuthResponse auth)
             : base("media/", config, auth)
         {
         }

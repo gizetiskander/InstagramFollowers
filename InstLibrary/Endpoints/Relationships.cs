@@ -31,7 +31,7 @@ namespace InstLibrary.Endpoints
         /// Relationships Endpoints
         /// </summary>
         /// <param name="config">An instance of the InstagramConfig class.</param>
-        public Relationships(InstagramConfig config)
+        public Relationships(InstApi config)
             : this(config, null)
         {
         }
@@ -41,7 +41,7 @@ namespace InstLibrary.Endpoints
         /// </summary>
         /// <param name="config">An instance of the InstagramConfig class.</param>
         /// <param name="auth">An instance of the OAuthResponse class.</param>
-        public Relationships(InstagramConfig config, OAuthResponse auth)
+        public Relationships(InstApi config, OAuthResponse auth)
             : base("users/", config, auth)
         {
         }
@@ -74,17 +74,7 @@ namespace InstLibrary.Endpoints
             return Client.ExecuteAsync<UsersResponse>(request);
         }
 
-        /// <summary>
-        /// Get the list of users this user follows.
-        /// <para>Requires Authentication: True</para><para><c>Required scope:</c> relationships
-        /// </para>
-        /// </summary>
-        /// <returns>UsersResponse</returns>
-        public async Task<List<User>> FollowsAll()
-        {
-            AssertIsAuthenticated();
-            return await new PageReader<User, UsersResponse>().ReadPages(Follows);
-        }
+
 
         /// <summary>
         /// Get the list of users this user is followed by (one page worth).
@@ -120,12 +110,7 @@ namespace InstLibrary.Endpoints
         /// </para>
         /// </summary>
         /// <returns>UsersResponse</returns>
-        public async Task<List<User>> FollowedByAll()
-        {
-            AssertIsAuthenticated();
-            return await new PageReader<User, UsersResponse>().ReadPages(FollowedBy);
-        }
-
+  
         /// <summary>
         /// List the users who have requested this user's permission to follow.
         /// <para>
