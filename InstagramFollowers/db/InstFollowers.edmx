@@ -65,6 +65,18 @@
           <Property Name="ID_User" Type="int" />
           <Property Name="Follower_version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Follower__User">
+          <End Role="_User" Type="Self._User" Multiplicity="0..1" />
+          <End Role="Follower" Type="Self.Follower" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_User">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="Follower">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Follower_Role">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
           <End Role="Follower" Type="Self.Follower" Multiplicity="*" />
@@ -74,18 +86,6 @@
             </Principal>
             <Dependent Role="Follower">
               <PropertyRef Name="ID_Role" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Followers_User">
-          <End Role="_User" Type="Self._User" Multiplicity="0..1" />
-          <End Role="Follower" Type="Self.Follower" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="_User">
-              <PropertyRef Name="ID_User" />
-            </Principal>
-            <Dependent Role="Follower">
-              <PropertyRef Name="ID_User" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -146,12 +146,12 @@
     [Follower_view].[Follower_version] AS [Follower_version]
     FROM [dbo].[Follower_view] AS [Follower_view]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_Follower_Role" Association="Self.FK_Follower_Role">
-            <End Role="Role" EntitySet="Role" />
+          <AssociationSet Name="FK_Follower__User" Association="Self.FK_Follower__User">
+            <End Role="_User" EntitySet="_User" />
             <End Role="Follower" EntitySet="Follower" />
           </AssociationSet>
-          <AssociationSet Name="FK_Followers_User" Association="Self.FK_Followers_User">
-            <End Role="_User" EntitySet="_User" />
+          <AssociationSet Name="FK_Follower_Role" Association="Self.FK_Follower_Role">
+            <End Role="Role" EntitySet="Role" />
             <End Role="Follower" EntitySet="Follower" />
           </AssociationSet>
           <AssociationSet Name="FK_History_Follower_Follower" Association="Self.FK_History_Follower_Follower">
@@ -174,7 +174,7 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="User_text" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
           <Property Name="User_Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Follower" Relationship="Self.FK_Followers_User" FromRole="C_User" ToRole="Follower" />
+          <NavigationProperty Name="Follower" Relationship="Self.FK_Follower__User" FromRole="C_User" ToRole="Follower" />
         </EntityType>
         <EntityType Name="Follower">
           <Key>
@@ -186,7 +186,7 @@
           <Property Name="Follower_Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Follower_text" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
           <Property Name="ID_Role" Type="Int32" />
-          <NavigationProperty Name="C_User" Relationship="Self.FK_Followers_User" FromRole="Follower" ToRole="C_User" />
+          <NavigationProperty Name="C_User" Relationship="Self.FK_Follower__User" FromRole="Follower" ToRole="C_User" />
           <NavigationProperty Name="Role" Relationship="Self.FK_Follower_Role" FromRole="Follower" ToRole="Role" />
           <NavigationProperty Name="History_Follower" Relationship="Self.FK_History_Follower_Follower" FromRole="Follower" ToRole="History_Follower" />
         </EntityType>
@@ -228,7 +228,7 @@
           <Property Name="ID_User" Type="Int32" />
           <Property Name="Follower_version" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
-        <Association Name="FK_Followers_User">
+        <Association Name="FK_Follower__User">
           <End Role="C_User" Type="Self.C_User" Multiplicity="0..1" />
           <End Role="Follower" Type="Self.Follower" Multiplicity="*" />
           <ReferentialConstraint>
@@ -271,7 +271,7 @@
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Follower_view" EntityType="Self.Follower_view" />
-          <AssociationSet Name="FK_Followers_User" Association="Self.FK_Followers_User">
+          <AssociationSet Name="FK_Follower__User" Association="Self.FK_Follower__User">
             <End Role="C_User" EntitySet="C_User" />
             <End Role="Follower" EntitySet="Follower" />
           </AssociationSet>

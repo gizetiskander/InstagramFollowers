@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4fe63f1f1e4b413aadf743987ede9cf7" Name="Diagram1">
+      <Diagram DiagramId="475e2259bc0a4900b78adc0b49a50fd4" Name="Diagram1">
         <EntityTypeShape EntityType="InstagramFollowersModel.C_User" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="InstagramFollowersModel.Follower" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="InstagramFollowersModel.History_Follower" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="InstagramFollowersModel.Role" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="InstagramFollowersModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="InstagramFollowersModel.Follower_view" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
-        <AssociationConnector Association="InstagramFollowersModel.FK_Followers_User" ManuallyRouted="false" />
+        <AssociationConnector Association="InstagramFollowersModel.FK_Follower__User" ManuallyRouted="false" />
         <AssociationConnector Association="InstagramFollowersModel.FK_Follower_Role" ManuallyRouted="false" />
         <AssociationConnector Association="InstagramFollowersModel.FK_History_Follower_Follower" ManuallyRouted="false" />
       </Diagram>

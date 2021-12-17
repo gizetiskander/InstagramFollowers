@@ -11,8 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Data.SqlClient;
 using InstagramFollowers.db;
 using InstagramFollowers.Pages;
+using System.IO;
+using System.Net;
+using Newtonsoft.Json;
+using InstLibrary;
+
 
 namespace InstagramFollowers.Pages
 {
@@ -26,8 +32,19 @@ namespace InstagramFollowers.Pages
         {
             InitializeComponent();
             dbEntities = new InstFollowersEntities();
-            Sub.ItemsSource = dbEntities.Follower.ToList();
-            Unsub.ItemsSource = dbEntities.Follower.ToList();
+            foreach(var follower in InstFollowers.dbEntities.Follower)
+            {
+                if(MainWindow.authUser.ID_User == 1)
+                {
+                    Sub.ItemsSource = dbEntities.Follower.Where(x => x.ID_Role == 1 && x.ID_User == 1).ToList();
+                    Unsub.ItemsSource = dbEntities.Follower.Where(x => x.ID_Role == 2 && x.ID_User == 1).ToList();
+                }
+                else if(MainWindow.authUser.ID_User == 5)
+                {
+                    Sub.ItemsSource = dbEntities.Follower.Where(x => x.ID_Role == 1 && x.ID_User == 5).ToList();
+                    Unsub.ItemsSource = dbEntities.Follower.Where(x => x.ID_Role == 2 && x.ID_User == 5).ToList();
+                }
+            }
         }
 
         private void OpenHome_Click(object sender, RoutedEventArgs e)
@@ -37,14 +54,18 @@ namespace InstagramFollowers.Pages
             main.Show();
         }
 
-        private void Unsub_initialized(object sender, EventArgs e)
+        private async void View_APi_Click(object sender, RoutedEventArgs e)
         {
-            foreach(var follower in InstFollowers.dbEntities.Follower)
+            var clientID = "Myclient";
+            var clientSecret = "Mysecret";
+
+            InstLibrary.InstApi api = new InstLibrary.InstApi(clientID, clientSecret);
+            var location = new InstLibrary.Endpoints.Locations(api);
+
+            var result = await location.Search(45.759723, 4.842223);
+            foreach (InstLibrary.Models.Location l in result.Data)
             {
-                if(follower.ID_Role == 2)
-                {
-                    
-                }
+                MessageBox.Show(l.Name);
             }
         }
     }

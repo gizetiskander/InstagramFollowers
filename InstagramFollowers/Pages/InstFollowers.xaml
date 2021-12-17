@@ -15,7 +15,7 @@
         </Button>
         <TextBlock HorizontalAlignment="Left" Margin="30,10,0,0" TextWrapping="Wrap" Text="Подписались" VerticalAlignment="Top" Height="50" Width="238" Foreground="White" FontSize="36" FontWeight="Bold"/>
         <TextBlock HorizontalAlignment="Left" Margin="767,10,0,0" TextWrapping="Wrap" Text="Отписались" VerticalAlignment="Top" Height="50" Width="238" Foreground="White" FontSize="36" FontWeight="Bold"/>
-        <ListBox x:Name="Unsub" HorizontalAlignment="Left" Height="520" Margin="704,97,0,0" VerticalAlignment="Top" Width="662" Background="Black" Foreground="White" Initialized="Unsub_initialized">
+        <ListBox x:Name="Unsub" HorizontalAlignment="Left" Height="520" Margin="704,97,0,0" VerticalAlignment="Top" Width="662" Background="Black" Foreground="White">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel x:Name="Unsub_StackPanel" Margin="5" Orientation="Horizontal">
@@ -37,5 +37,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button x:Name="API" Content="ViewAPI" HorizontalAlignment="Left" Margin="30,679,0,0" VerticalAlignment="Top" Width="123" Height="30" Background="White" Click="View_APi_Click"/>
     </Grid>
 </Window>

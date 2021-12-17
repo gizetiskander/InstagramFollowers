@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Endpoints\Embedding.cs" />
     <Compile Include="Endpoints\InstagramAPI.cs" />
+    <Compile Include="Endpoints\Locations.cs" />
     <Compile Include="Endpoints\Media.cs" />
     <Compile Include="Endpoints\Relationships.cs" />
     <Compile Include="Endpoints\Subscription.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Models\Count.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\IncomingStatus.cs" />
+    <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\MediaSize.cs" />
     <Compile Include="Models\Meta.cs" />
@@ -77,6 +79,8 @@
     <Compile Include="Models\RealtimeUpdateItem.cs" />
     <Compile Include="Models\Relationship.cs" />
     <Compile Include="Models\Resolution.cs" />
+    <Compile Include="Models\Responses\LocationResponse.cs" />
+    <Compile Include="Models\Responses\LocationsResponse.cs" />
     <Compile Include="Models\Responses\MediaResponse.cs" />
     <Compile Include="Models\Responses\MediasResponse.cs" />
     <Compile Include="Models\Responses\OAuthResponse.cs" />
