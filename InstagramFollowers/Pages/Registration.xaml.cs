@@ -52,11 +52,8 @@ namespace InstagramFollowers.Pages
                     image.BeginInit();
                     image.UriSource = new Uri(ofdImage.FileName);
                     image.EndInit();
-                    C_User cu = new C_User();
                     playim.Source = image;
-                    cu.User_Image = File.ReadAllBytes(ofdImage.FileName);
-                    dbEntities.C_User.Add(cu);
-                    dbEntities.SaveChanges();
+                    user.User_Image = File.ReadAllBytes(ofdImage.FileName);
                 }
                 MainWindow.dbEntities.C_User.Add(user);
                 try

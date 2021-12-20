@@ -47,7 +47,16 @@ namespace InstagramFollowers.Pages
             }
         }
 
-        private void OpenHome_Click(object sender, RoutedEventArgs e)
+        void OnChange(object sender, SqlNotificationEventArgs e)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Notification = null;
+
+            SqlDependency dependency = new SqlDependency();
+            dependency.OnChange += OnChange;
+
+        }
+            private void OpenHome_Click(object sender, RoutedEventArgs e)
         {
             MainWindow main = new MainWindow();
             this.Close();
